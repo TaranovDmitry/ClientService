@@ -1,15 +1,12 @@
-FROM golang:alpine
+FROM golang:1.17
 
-WORKDIR /clientService
+WORKDIR /app
 
-COPY communications ./
-COPY config ./
-COPY handlers ./
-COPY services ./
-COPY go.sum ./
-COPY go.mod ./
-COPY main.go ./
+ADD . /app
 
-RUN go build -o clientService .
+WORKDIR /app
 
-CMD ["/clientService/clientService"]
+RUN go mod download
+RUN go build -o main .
+
+CMD ["/app/main"]

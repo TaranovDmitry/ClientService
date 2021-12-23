@@ -1,4 +1,4 @@
-module ClientMicroservice
+module gihub.com/TaranovDmitry/ClientService
 
 go 1.17
 

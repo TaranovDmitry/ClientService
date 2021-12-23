@@ -7,10 +7,10 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"ClientMicroservice/communications"
-	"ClientMicroservice/config"
-	"ClientMicroservice/handlers"
-	"ClientMicroservice/services"
+	"gihub.com/TaranovDmitry/ClientService/communications"
+	"gihub.com/TaranovDmitry/ClientService/config"
+	"gihub.com/TaranovDmitry/ClientService/handlers"
+	"gihub.com/TaranovDmitry/ClientService/services"
 )
 
 type Server struct {
