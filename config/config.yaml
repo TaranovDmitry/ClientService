@@ -1,2 +1,2 @@
 port: "8080"
-domainServiceURL: "http://localhost:8000"
+domainServiceURL: "http://localhost:8081"
