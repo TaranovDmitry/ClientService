@@ -2,7 +2,7 @@
 ### by Dmitry Taranov
 <br></br>
 #### Client Service GitHub Repo: [Client Service](https://github.com/TaranovDmitry/ClientService)
-#### Domain Service GitHub Repo: [Domain Service](https://github.com/TaranovDmitry/DomainService)
+#### Domain Service GitHub Repo: [Domain Service](https://github.com/TaranovDmitry/DomainMicroservice)
 
 ### Prerequisites:
 - docker
