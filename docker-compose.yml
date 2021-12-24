@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  client:
+    build: .
+    ports:
+      - "8080:8080"
+    container_name: client
+  domain:
+    image: domainmicroservice_domain
+    ports:
+      - "8081:8081"
+    container_name: domain
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_USER: postgres
+      POSTGRES_DB: task_db
+    ports:
+      - "5432:5432"
+    container_name: postgres
