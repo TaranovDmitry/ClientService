@@ -26,19 +26,10 @@ func NewHandler(services Service) *Handler {
 	}
 }
 
-type err struct {
-	Message string `json:"message"`
-}
-
-func newErrorResponse(c *gin.Context, statusCode int, message string) {
-	logrus.Error(message)
-	c.AbortWithStatusJSON(statusCode, err{message})
-}
-
 func (h *Handler) ports(c *gin.Context) {
 	ports, err := h.service.Ports()
 	if err != nil {
-		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		errorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
 
@@ -48,34 +39,43 @@ func (h *Handler) ports(c *gin.Context) {
 func (h *Handler) uploadPorts(c *gin.Context) {
 	formFile, err := c.FormFile("file")
 	if err != nil {
-		newErrorResponse(c, http.StatusBadRequest, err.Error())
+		errorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}
 
 	openedFile, err := formFile.Open()
 	if err != nil {
-		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		errorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	file, err := ioutil.ReadAll(openedFile)
 	if err != nil {
-		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		errorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	var ports entity.Ports
 	err = json.Unmarshal(file, &ports)
 	if err != nil {
-		newErrorResponse(c, http.StatusBadRequest, err.Error())
+		errorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}
 
 	err = h.service.UpdatePorts(ports)
 	if err != nil {
-		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		errorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	c.AbortWithStatus(http.StatusCreated)
+}
+
+type err struct {
+	Message string `json:"message"`
+}
+
+func errorResponse(c *gin.Context, statusCode int, message string) {
+	logrus.Error(message)
+	c.AbortWithStatusJSON(statusCode, err{message})
 }
